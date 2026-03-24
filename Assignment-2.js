@@ -84,10 +84,23 @@ Input Example: ./index.js
 •
 Output Example: /home/user/project/src/index.js
 */
-const resolveRelativePath = function (relativePath) {
-  return `${__dirname}/${relativePath}`;
+const resolvPath = (relPath) => {
+  let absolPath = "/home/user/project/src";
+  let relparts = relPath.split("/"); // [".","index"]
+  let absolParts = absolPath.split("/").filter(Boolean);
+  for (let p of relparts) {
+    if (p === "." || p === "") {
+      continue;
+    } else if (p === "..") {
+      absolParts.pop();
+    } else {
+      absolParts.push(p);
+    }
+  }
+  return "/" + absolParts.join("/");
 };
-console.log(resolveRelativePath("./index.js"));
+
+console.log(resolvPath("./index.js"));
 newLine();
 
 /*
