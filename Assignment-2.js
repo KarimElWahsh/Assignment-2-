@@ -112,10 +112,15 @@ Input Example: /folder1, folder2/file.txt
 Output Example: /folder1/folder2/file.txt
 */
 
-const joinTwoPaths = function (path1, path2) {
-  return `${path1}/${path2}`;
+const joinPaths = (firstPath, SecondPath) => {
+  let firstParts = firstPath.split("/").filter(Boolean); //["folder1"]
+  let secParts = SecondPath.split("/"); //["folder2","file.txt"]
+  for (let p of secParts) {
+    firstParts.push(p);
+  }
+  return "/" + firstParts.join("/");
 };
-console.log(joinTwoPaths("/folder1", "folder2/file.txt"));
+console.log(joinPaths("/folder1", "folder2/file.txt"));
 newLine();
 /*10.
 Write a function that deletes a file asynchronously. (0.5 Grade)
